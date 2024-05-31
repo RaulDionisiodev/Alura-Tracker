@@ -6,11 +6,7 @@
             </div>
             <div class="column">
                 <div class="is-flex is-align-items-center is-justify-content-space-around">
-                    <section>
-                        <strong>
-                            {{ tempoDecorrido }}
-                        </strong>
-                    </section>
+                   <cronometro :tempoEmSegundos="tempoEmSegundos" />
                     <button class="button" @click="iniciarContagem">
                         <span class="icon">
                             <i class="fas fa-play"></i>
@@ -31,21 +27,20 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import Cronometro from './Cronometro.vue';
 
 export default defineComponent ({
     name: 'Formulario',
+    components: {
+        Cronometro
+    },
     data () {
         return {
             tempoEmSegundos: 0,
             cronometro: 0
         }
     },
-    computed: {
-        //O computed obsera uma informação e, sempre que essa informação for modificada ele atua
-        tempoDecorrido() : string { // uma computed propertie é declarada como uma função
-            return new Date(this.tempoEmSegundos * 1000).toISOString().substr(11,8)
-        }   
-    },
+   
     methods: {
         iniciarContagem () {
             this.cronometro = setInterval(() => {
