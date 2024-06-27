@@ -1,5 +1,7 @@
 # alura-tracker
 
+## Project deployed: https://alura-tracker-orpin-delta.vercel.app/
+
 ## Project setup
 ```
 npm install
