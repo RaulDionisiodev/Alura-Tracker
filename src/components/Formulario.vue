@@ -33,6 +33,7 @@ import { useStore } from 'vuex';
 import { key } from '@/store';
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import { NOTIFICAR } from "@/store/tipo-mutacoes"
+import { notificacaoMixin } from '@/mixins/notificar'
 
 export default defineComponent ({
     name: 'Formulario',
@@ -46,16 +47,13 @@ export default defineComponent ({
             idProjeto: ''
         }
     },
+    mixins: [notificacaoMixin],
     methods: {
         finalizarTarefa (tempoDecorrido : number) : void {
             const projeto = this.projetos.find((p) => p.id == this.idProjeto); // primeiro, buscamos pelo 
             
             if(!projeto) { // se o projeto não existe...
-                this.store.commit(NOTIFICAR, {
-                    titulo: 'Ops!',
-                    texto: "Selecione um projeto antes de finalizar a tarefa!",
-                    tipo: TipoNotificacao.FALHA,
-                }); // notificamos o usuário
+               this.notificar(TipoNotificacao.FALHA, 'Ops!', "Selecione um projeto antes de finalizar a tarefa!") // notificamos o usuário
                 return; // ao fazer return aqui, o restante do método salvarTarefa não será executado. chamamos essa técnica de early return :)
             }
 
